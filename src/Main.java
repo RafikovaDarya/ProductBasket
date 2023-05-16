@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-   public static File textFile = new File("basket.txt");
+   public static File textFile = new File("basket.bin");
 
     public static void main(String[] args) {
 
@@ -15,7 +15,7 @@ public class Main {
         Basket basket = null;
 
         if (textFile.exists()) {
-            basket = Basket.loadFromTxtFile(textFile);
+            basket = Basket.loadFromBinFile(textFile);
         } else {
             basket = new Basket(products, prices);
         }
@@ -42,7 +42,7 @@ public class Main {
             int amount = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNum, amount);
-            basket.saveTxt(textFile);
+            basket.saveBin(textFile);
         }
     }
 

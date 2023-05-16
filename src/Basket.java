@@ -1,7 +1,8 @@
 import java.io.*;
 import java.util.Arrays;
 
-public class Basket {
+public class Basket implements Serializable {
+    private static final long serialVersionUID = 1L;
     public String[] products;
     public int[] prices;
     int[] selectProducts;
@@ -62,59 +63,29 @@ public class Basket {
         System.out.println("Итого: " + sumProducts + " руб.");
     }
 
-    public void saveTxt(File textFile) {
-        try (Writer fileWriter = new FileWriter(textFile)) {
-            for (String elem : products) {
-                fileWriter.append(elem).append(" ");
-            }
-            fileWriter.append("\n");
+    public void saveBin(File textFile) {
 
-            for (int elem : prices) {
-                fileWriter.append(String.valueOf(elem)).append(" ");
-            }
-            fileWriter.append("\n");
+        try (ObjectOutputStream oos = new ObjectOutputStream(new
+                FileOutputStream(textFile))) {
+            oos.writeObject(this);
 
-            for (int elem : selectProducts) {
-                fileWriter.append(String.valueOf(elem)).append(" ");
-            }
-            fileWriter.append("\n");
-
-
-            fileWriter.flush();
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
-    public static Basket loadFromTxtFile(File textFile) {
+    public static Basket loadFromBinFile(File textFile) {
         Basket basket = new Basket();
 
+        try (ObjectInputStream objectInputStream =
+                     new ObjectInputStream(new FileInputStream(textFile))) {
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(textFile))) {
-
-            String readProducts = bufferedReader.readLine();
-            String readPrices = bufferedReader.readLine();
-            String readSelectProducts = bufferedReader.readLine();
-
-            basket.products = readProducts.split(" ");
-
-            basket.prices = Arrays.stream(readPrices.split(" "))
-                    .map(Integer::parseInt)
-                    .mapToInt(Integer::intValue)
-                    .toArray();
-
-            basket.selectProducts = Arrays.stream(readSelectProducts.split(" "))
-                    .map(Integer::parseInt)
-                    .mapToInt(Integer::intValue)
-                    .toArray();
-
-
-
-
+            basket = (Basket) objectInputStream.readObject();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         return basket;
 
