@@ -1,29 +1,24 @@
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-   public static File textFile = new File("basket.bin");
+    public static File textFile = new File("basket.json");
 
     public static void main(String[] args) {
-
-
-
+        ClientLog clientlog = new ClientLog();
+        clientlog.logString(new String[]{"productNum", "amount"});
 
         String[] products = {"Хлеб", "Яблоки", "Молоко"};
         int[] prices = {100, 200, 300};
         Basket basket = null;
 
         if (textFile.exists()) {
-            basket = Basket.loadFromBinFile(textFile);
+            basket = Basket.loadFromJSONFile(textFile);
         } else {
             basket = new Basket(products, prices);
         }
 
-
         basket.printCart();
-
-
         Scanner scanner = new Scanner(System.in);
 
 
@@ -34,7 +29,7 @@ public class Main {
 
                 System.out.println("Ваша корзина: ");
                 basket.amountOfProducts();
-                //basket.saveTxt(textFile);
+                clientlog.exportAsCSV(new File("log.csv"));
                 break;
             }
             String[] parts = input.split(" ");
@@ -42,8 +37,15 @@ public class Main {
             int amount = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNum, amount);
-            basket.saveBin(textFile);
+            clientlog.log(productNum, amount);
+
+
+            basket.saveJSON(textFile);
+
+
         }
+
+
     }
 
 

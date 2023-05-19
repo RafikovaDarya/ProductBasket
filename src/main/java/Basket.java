@@ -1,3 +1,7 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.simple.JSONObject;
+
 import java.io.*;
 import java.util.Arrays;
 
@@ -6,6 +10,7 @@ public class Basket implements Serializable {
     public String[] products;
     public int[] prices;
     int[] selectProducts;
+
 
     public Basket(String[] products, int[] prices) {
         this.products = products;
@@ -17,21 +22,6 @@ public class Basket implements Serializable {
 
     }
 
-    public String[] getProducts() {
-        return products;
-    }
-
-    public int[] getPrices() {
-        return prices;
-    }
-
-    public void setProducts(String[] products) {
-        this.products = products;
-    }
-
-    public void setPrices(int[] prices) {
-        this.prices = prices;
-    }
 
     public void addToCart(int productNum, int amount) {
         if (selectProducts[productNum] == 0) {
@@ -63,28 +53,35 @@ public class Basket implements Serializable {
         System.out.println("Итого: " + sumProducts + " руб.");
     }
 
-    public void saveBin(File textFile) {
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(new
-                FileOutputStream(textFile))) {
-            oos.writeObject(this);
+    //JSON
+    public void saveJSON(File textFile) {
+        try (FileWriter fileWriter = new FileWriter(textFile)) {
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.setPrettyPrinting().create();
+            String json = gson.toJson(this);
+            fileWriter.write(json);
 
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+
         }
+
     }
 
-    public static Basket loadFromBinFile(File textFile) {
+    public static Basket loadFromJSONFile(File textFile) {
         Basket basket = new Basket();
 
-        try (ObjectInputStream objectInputStream =
-                     new ObjectInputStream(new FileInputStream(textFile))) {
-
-            basket = (Basket) objectInputStream.readObject();
-
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        } catch (ClassNotFoundException e) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(textFile))) {
+            StringBuilder builder = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+            Gson gson = new Gson();
+            basket = gson.fromJson(builder.toString(), Basket.class);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return basket;

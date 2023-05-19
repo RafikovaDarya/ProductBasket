@@ -1,7 +1,8 @@
 /shelf/
-/.idea/workspace.xml
+
+.idea/
+*.iml
+out/
+target/
 basket.txt
-/.idea
-.iml
-/out
-/target
+basket.bin
