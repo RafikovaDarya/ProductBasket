@@ -6,3 +6,5 @@ out/
 target/
 basket.txt
 basket.bin
+pom.xml
+/.idea

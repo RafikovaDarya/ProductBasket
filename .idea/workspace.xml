@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15e03800-f52d-499c-bdcc-10796490fe72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/basket.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ClientLog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProductBasket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ProductBasket.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basket.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProductBasket/Basket.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ProductBasket/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Basket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Basket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
